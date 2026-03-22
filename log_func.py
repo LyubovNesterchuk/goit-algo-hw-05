@@ -137,7 +137,7 @@ INFO             | 4
 WARNING          | 1 
 '''
 
-# python log_func.py logfile.log error є
+# python log_func.py logfile.log error 
 '''Деталі логів для рівня 'ERROR':
 2024-01-22 09:00:45 - Database connection failed.
 2024-01-22 11:30:15 - Backup process failed.'''
