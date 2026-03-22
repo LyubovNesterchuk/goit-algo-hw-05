@@ -1,24 +1,25 @@
 import re
-from typing import Callable
+from typing import Callable, Iterator
 
 text = '''Загальний дохід працівника складається з декількох частин: 
 1000.01 як основний дохід, доповнений додатковими надходженнями 27.45 і 324.00 доларів.'''
 
-def generator_numbers(text: str):
-    pattern = r'(?:^|\s)([+-]?\d+(?:\.\d+)?)(?=\s|$)'
+def generator_numbers(text: str) -> Iterator[float]:
+  
+    pattern = r'(?<!\S)[+-]?\d+(?:\.\d+)?(?!\S)'
     
     for match in re.finditer(pattern, text):
-        yield float(match.group(1))
+        yield float(match.group())
+
+def sum_profit(text: str, func: Callable[[str], Iterator[float]]) -> float:
+    return sum(func(text))
 
 generator = generator_numbers(text)
-print(next(generator))  # 100.5
-print(next(generator))  # 200.0
-print(next(generator))  # 300.75
-# print(next(generator))  # StopIteration
 
-def sum_profit(text: str, func: Callable):
-    return sum(func(text))
-        
+print(next(generator))  # 1000.01
+print(next(generator))  # 27.45
+print(next(generator))  # 324.0
+
 total_income = sum_profit(text, generator_numbers)
-print(f"Загальний дохід: {total_income}") # Загальний дохід: 1351.46
+print(f"Загальний дохід: {total_income}")
 
