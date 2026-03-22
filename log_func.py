@@ -128,12 +128,14 @@ if __name__ == "__main__":
 
 # в терміналі:
 # python log_func.py logfile.log
-'''Рівень логування | Кількість
+'''
+Рівень логування | Кількість
 -----------------|----------
 DEBUG            | 3
 ERROR            | 2
 INFO             | 4
-WARNING          | 1 '''
+WARNING          | 1 
+'''
 
 # python log_func.py logfile.log error є
 '''Деталі логів для рівня 'ERROR':
