@@ -49,32 +49,35 @@ def input_error(func):
         except ValueError: # користувач ввів неправильну кількість аргументів
             return "Give me name and phone please."
         except KeyError: # намагаєшся отримати значення з словника за ключем, якого там немає
-            return "User not found."
+            return "Contact not found."
         except IndexError: # користувач не ввів аргументи для команди
-            return "Enter user name."
+            return "Enter name."
     return inner
 
 
 @input_error
 def add_contact(args, contacts):
     name, phone = args
+    if name in contacts:
+        return "Contact already exists. Use 'change' to update."
     contacts[name] = phone
     return "Contact added."
+
 
 @input_error
 def change_contact(args, contacts):
     name, phone = args
-    if name in contacts:
-        contacts[name] = phone
-        return "Contact updated."
-    return "Contact not found."
+    if name not in contacts:
+        return "Contact not found."
+    contacts[name] = phone
+    return "Contact updated."
+    
 
 @input_error
 def show_phone(args, contacts):
     name = args[0]
-    if name in contacts:
-        return contacts[name]
-    return "Contact not found."
+    return contacts[name]
+
 
 @input_error
 def show_all(contacts):
